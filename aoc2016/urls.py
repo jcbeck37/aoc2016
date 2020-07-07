@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path
 
 from aoc2016.day01.views import test
+from aoc2016.days.day02views import processDay02
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('days/1', test)
+    path('days/1', test),
+    path('days/2', processDay02)
 ]
