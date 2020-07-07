@@ -1,10 +1,10 @@
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from rest_framework.decorators import api_view
 from aoc2016.models import Coordinates
-from aoc2016.day01.part01 import ParseInput, FindDistance, FindFirstRepeat
+from aoc2016.days.day01 import ParseInput, FindDistance, FindFirstRepeat
 
 @api_view(['POST'])
-def test(request):
+def process(request):
     testBody = request.data
     input = testBody["input"]
 
