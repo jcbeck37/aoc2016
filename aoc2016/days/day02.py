@@ -28,3 +28,37 @@ def FindCode(moves):
     
     line = lines[keyposy]
     return list(line)[keyposx]
+
+def FindRealCode(moves):
+    keyposx = 0
+    keyposy = 2
+    for move in moves:
+        tryx = keyposx
+        tryy = keyposy
+        if move == "U":
+            tryy = keyposy - 1
+        elif move == "D":
+            tryy = keyposy + 1
+        elif move == "L":
+            tryx = keyposx - 1
+        elif move == "R":
+            tryx = keyposx + 1
+        code = GetKeyCode(tryx, tryy)
+        if code != " ":
+            keyposx = tryx
+            keyposy = tryy
+    
+    return GetKeyCode(keyposx, keyposy)
+
+def GetKeyCode(x, y):
+    lines = [
+        "  1  ",
+        " 234 ",
+        "56789",
+        " ABC ",
+        "  D  "
+    ]
+    if x < 0 or y < 0 or x > 4 or y > 4:
+        return " "
+    
+    return list(lines[y])[x]
