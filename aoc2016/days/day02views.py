@@ -1,6 +1,5 @@
-from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
+from django.http import JsonResponse
 from rest_framework.decorators import api_view
-from aoc2016.models import Coordinates
 from aoc2016.days.day02 import ParseInput, FindCode, FindRealCode
 
 @api_view(['POST'])
