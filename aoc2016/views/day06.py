@@ -13,6 +13,7 @@ def process(request):
         sample = f.read()
     sampleLines = ParseInput(sample)
     sample = DecodeMessage(sampleLines)
+    revisedSample = DecodeMessage(sampleLines, "least")
 
     path_to = os.path.join(BASE_DIR, 'aoc2016/inputs/06.txt')
     with open(path_to) as f:
@@ -24,6 +25,7 @@ def process(request):
     return JsonResponse({
         "sample lines": len(sampleLines),
         "sample msg": sample,
+        "sample msg 2": revisedSample,
         "lines": len(lines),
         "msg": message,
         "real msg": realMessage,
