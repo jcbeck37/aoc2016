@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from aoc2016.days.day02 import ParseInput, FindCode, FindRealCode
 
 @api_view(['POST'])
-def processDay02(request):
+def process(request):
     body = request.data
     input = body["input"]
 
