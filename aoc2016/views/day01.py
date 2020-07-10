@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from rest_framework.decorators import api_view
-from aoc2016.models import Coordinates
+from aoc2016.models.day01 import Coordinates
 from aoc2016.days.day01 import ParseInput, FindDistance, FindFirstRepeat
 
 @api_view(['POST'])

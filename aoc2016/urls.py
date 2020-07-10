@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from aoc2016.views import day01, day02, day03, day04, day05, day06, day07, day08, day09
+from aoc2016.views import day01, day02, day03, day04, day05, day06, day07, day08, day09, day10
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +28,6 @@ urlpatterns = [
     path('days/6', day06.process),
     path('days/7', day07.process),
     path('days/8', day08.process),
-    path('days/9', day09.process)
+    path('days/9', day09.process),
+    path('days/10', day10.process)
 ]

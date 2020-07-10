@@ -1,4 +1,4 @@
-from aoc2016.models import Coordinates, Directions
+from aoc2016.models.day01 import Coordinates, Directions
 
 eachIntersection = []
 wasFound = False
