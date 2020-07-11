@@ -16,20 +16,8 @@ def Init():
         bot.delete()
 
 def Summarize():
-    #for inst in Instruction.objects.all():
-    #    print(inst)
-
-    #for chip in Microchip.objects.all():
-    #    print(chip)
-
     for outtie in Output.objects.all().order_by('outId'):
         print(outtie)
-
-    # counts = BalanceBot.objects.annotate(
-    #     chips=Count('microchip')
-    # )
-    # for bot in counts.order_by("-chips"):
-    #     print(bot, bot.chips)
 
 def Process(input):
     Init()
@@ -37,11 +25,9 @@ def Process(input):
     for item in input.split("\n"):
         if item != "":
             idx += 1
-            #print("ITEM", idx, item)
             key0 = item[:6]
             if key0 == "value ":
                 nums = item[6:].split(" goes to bot ")
-                # print("item[6:]", item[6:], nums[0], nums[1])
                 try:
                     BotReceivesChip(int(nums[1]), int(nums[0]))
                 except:
@@ -102,23 +88,8 @@ def BotReceivesChip(botId: int, val: int):
     bot = IdentifyBot(botId)
     chip = IdentifyChip(val)
 
-    # oldBot = ""
-    # if chip.botHolding:
-    #     oldBot = str(chip.botHolding) + " gives"
-    #     print(oldBot, "chip", chip.value, "to bot", botId)
-    # # else:
-    # #     print("bot", botId, "gets", chip)
-
     chip.botHolding = bot
     chip.save()
-
-    # if not midComparison:
-    #     botChips = Microchip.objects.filter(botHolding=bot)
-    #     if len(botChips) == 2:
-    #         print("###", bot, "has 2 chips?!", botChips[0], botChips[1])
-    #         BotComparesChips(bot)
-    # else:
-    #     print("We are waiting on another bot to finish handing out chips!")
 
 def OutputChip(outId: int, val: int):
     out = IdentifyOutput(outId)
@@ -135,20 +106,16 @@ def BotGetsInstructions(botId: int, lowType, low, highType, high):
     inst.target = lowType
     inst.num = low
     inst.save()
-    # print(inst)
     
     inst = Instruction(keyBot=bot)
     inst.condition = "high"
     inst.target = highType
     inst.num = high
     inst.save()
-    # print(inst)
 
 def BotComparesChips(bot: BalanceBot):
     global midComparison
     midComparison = True
-
-    # print("Executing BotComparesChips")
 
     chipsHeld = Microchip.objects.filter(botHolding=bot)
     instructions = Instruction.objects.filter(keyBot=bot)
@@ -180,7 +147,6 @@ def BotComparesChips(bot: BalanceBot):
             highChip = chipsHeld[0].value
 
         for instr in instructions:
-            # print(instr)
             chipValue = lowChip if instr.condition == "low" else highChip
             if instr.target == "bot":
                 BotReceivesChip(instr.num, chipValue)
@@ -193,18 +159,8 @@ def ActivateBots():
         counts = BalanceBot.objects.annotate(
             chips=Count('microchip')
         ).filter(chips=2)
-        # print(len(counts), "ready to execute")
         if (len(counts)) < 1:
             haveWorkToDo = False
         for ready in counts:
-            # print(ready.chips, "chips in bot", ready)
             bot = IdentifyBot(ready.botId)
             BotComparesChips(bot)
-
-    # botChips = Microchip.objects.filter(botHolding=bot)
-    # if len(botChips) == 2:
-    #     print("###", bot, "has 2 chips AND instructions", botChips[0], botChips[1])
-    #     BotComparesChips(bot)
-
-    #     midComparison = False
-    #     print("Instructions carried out from comparison")
